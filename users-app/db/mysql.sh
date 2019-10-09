@@ -5,9 +5,10 @@ usage() {
 Usage: $(basename $0) <command>
 
 Wrappers around core binaries:
-    run                   Runs local Mysql DB in docker.
-    create-db             Creates DB and Table with users.
-    test                  Tests if configuration to DB is correct.
+    start                 Runs local Mysql DB in docker.
+    stop                  Stops local Mysql DB in docker.
+    create-db             Creates DB, Tables and inserts test data.
+    test                  Tests if configuration of DB is correct.
 EOF
     exit 1
 }
@@ -16,11 +17,13 @@ CMD="$1"
 
 shift
 case "$CMD" in
-    run)
-        docker run -v $PWD/data:/var/lib/mysql -v $PWD/sql:/sql -p 3306:3306 -d -e MYSQL_ROOT_PASSWORD=password mysql:5.7.24
+    start)
+        mkdir data | echo "Local dir for Docker volume created!"
+        docker run -v $PWD/data:/var/lib/mysql --name db -v $PWD/sql:/sql -p 3306:3306 -d -e MYSQL_ROOT_PASSWORD=password mysql:5.7.24
     ;;
 	stop)
         docker stop $(docker ps | grep "mysql:5.7.24" | awk '{print $1}')
+        docker rm db
     ;;
     create-db)
 	    DOCKER_ID=$(docker ps | grep "mysql:5.7.24" | awk '{print $1}')

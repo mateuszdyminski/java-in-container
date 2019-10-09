@@ -33,11 +33,12 @@ hs_err_pid*
 
 # Intellj
 .idea
+*.iml
 
 # VS Code
 .vscode
 
 # MySQL data
-app/db/data/*
+users-app/db/data/*
 
 
