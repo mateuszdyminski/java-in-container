@@ -31,4 +31,7 @@ docker-push:
 docker-run:
 	docker run -d --link db:mysql -p 8080:8080 "$(DOCKER_REPO)/$(NAME):$(DOCKERFILE_VERSION)" 
 
+docker-security-run:
+	docker run -d --read-only -m=512m --cpus=1 --link db:mysql -p 8080:8080 "$(DOCKER_REPO)/$(NAME):$(DOCKERFILE_VERSION)" 
+
 release: java-build docker-build docker-push
