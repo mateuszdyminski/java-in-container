@@ -4,6 +4,7 @@ import com.example.users.exceptions.ResourceNotFoundException;
 import com.example.users.model.User;
 import com.example.users.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +22,15 @@ public class UsersController {
 	public List<User> getAllUsers() {
 		return userRepository.findAll();
 	}
+	
+	// @GetMapping("/users")
+	// public List<User> getAllUsers(@RequestParam(value = "sort", required=false) String sort) {
+	// 	if(sort != null && !sort.isEmpty()) {
+	// 		return userRepository.findAll(Sort.by(sort));
+	// 	}
+
+	// 	return userRepository.findAll();
+	// }
 
 	@PostMapping("/users")
 	public User createUser(@Valid @RequestBody User user) {

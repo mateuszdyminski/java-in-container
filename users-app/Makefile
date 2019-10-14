@@ -8,7 +8,16 @@ DOCKER_REPO := mateuszdyminski
 .PHONY: java-build docker-run docker-build docker-push release
 
 java-build:
-	mvn clean install
+	./mvnw clean install
+
+java-layered-build:
+	./mvnw clean install
+	mkdir target/dependency
+	cd target/dependency; tar -zxf ../*.jar
+	cd ../..
+
+java-jib-build:
+	./mvnw clean compile jib:dockerBuild
 
 docker-build:
 	docker build \
