@@ -12,16 +12,14 @@ java-build:
 
 docker-build:
 	docker build \
-	-f Dockerfile.$(DOCKERFILE_VERSION) \
-	--tag="$(DOCKER_REPO)/$(NAME):latest" \
-	--tag="$(DOCKER_REPO)/$(NAME):$(VERSION)" \
+	-f $(DOCKERFILE_VERSION).Dockerfile \
+	--tag="$(DOCKER_REPO)/$(NAME):$(DOCKERFILE_VERSION)" \
 	.
 
 docker-push:
-	docker push "$(DOCKER_REPO)/$(NAME):latest"
-	docker push "$(DOCKER_REPO)/$(NAME):$(VERSION)"
+	docker push "$(DOCKER_REPO)/$(NAME):$(DOCKERFILE_VERSION)"
 
 docker-run:
-	docker run -d --link db:mysql -p 8080:8080 "$(DOCKER_REPO)/$(NAME):latest" 
+	docker run -d --link db:mysql -p 8080:8080 "$(DOCKER_REPO)/$(NAME):$(DOCKERFILE_VERSION)" 
 
 release: java-build docker-build docker-push
