@@ -41,4 +41,8 @@ hs_err_pid*
 # MySQL data
 users-app/db/data/*
 
+# Maven wrapper
+users-app/.mvn
 
+# tmp presentation file
+presentations/~$JavaInContainer.pptx

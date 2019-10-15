@@ -1,7 +1,0 @@
-FROM parrotstream/ubuntu-java
-
-RUN mkdir -p /var/users-app
-
-COPY target/app-1.0-SNAPSHOT.jar /var/users-app/app-1.0-SNAPSHOT.jar
-
-ENTRYPOINT ["java", "-jar", "/var/users-app/app-1.0-SNAPSHOT.jar"]
